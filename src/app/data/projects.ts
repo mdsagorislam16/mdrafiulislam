@@ -5,7 +5,7 @@ export const projects = [
     description: 'The prisoner was locked in a small cell.',
     category: 'Documentary',
     thumbnail: '/video-thumb-1.jpg',
-    videoUrl: 'https://screenapp.io/app/#/shared/pNM8bNmV2C',
+    videoUrl: 'https://drive.google.com/file/d/1JS2aaAAgk_n_KKkTJQv1rkCxwBv2O5Zu/view?usp=drive_link',
   },
   {
     id: 2,

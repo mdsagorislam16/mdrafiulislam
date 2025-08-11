@@ -24,120 +24,139 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState("#hero");
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(`#${entry.target.id}`);
-          }
-        });
-      },
-      {
-        rootMargin: "-30% 0px -60% 0px",
-        threshold: 0.1,
-      }
-    );
+    const handleScroll = () => {
+      const sections = document.querySelectorAll("section[id]");
+      let currentSection = "#hero";
+      let minDistance = window.innerHeight;
 
-    const sections = document.querySelectorAll("section[id]");
-    sections.forEach((section) => observer.observe(section));
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        const distance = Math.abs(rect.top);
+        if (distance < minDistance && rect.top < window.innerHeight / 2) {
+          minDistance = distance;
+          currentSection = `#${section.id}`;
+        }
+      });
 
-    return () => sections.forEach((section) => observer.unobserve(section));
+      setActiveSection(currentSection);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // run once on load
+
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <nav className="bg-black text-white fixed w-full z-50 shadow-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link href="/">
-            <span className="text-2xl font-bold text-white cursor-pointer">
-              Md Rafiul Islam
-            </span>
-          </Link>
+    <>
+      {/* Navbar */}
+      <nav className="bg-black text-white fixed top-0 left-0 w-full z-50 shadow-md overflow-x-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            {/* Logo */}
+            <Link href="/">
+              <span className="text-2xl font-bold text-white cursor-pointer">
+                Md Rafiul Islam
+              </span>
+            </Link>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex space-x-8">
-            {navItems.map((item) => {
-              const isActive = activeSection === item.href;
-              return (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className={`font-medium transition-all duration-300 ${
-                    isActive ? "" : "text-white"
-                  }`}
-                >
-                  {item.name}
-                </a>
-              );
-            })}
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsOpen(true)}
-              className="text-white text-2xl focus:outline-none"
-              aria-label="Open Menu"
-            >
-              <FiMenu />
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Menu with framer-motion */}
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            <motion.div
-              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              onClick={() => setIsOpen(false)}
-            />
-
-            <motion.div
-              className="fixed top-0 right-0 h-full w-4/5 bg-black z-50 p-6 space-y-6"
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ duration: 0.4, delay: 0.2 }}
-            >
-              <button
-                onClick={() => setIsOpen(false)}
-                className="text-2xl text-white ml-auto block"
-                aria-label="Close Menu"
-              >
-                <FiX />
-              </button>
-
-              {/* Mobile Nav Items */}
+            {/* Desktop Nav */}
+            <div className="hidden md:flex space-x-8">
               {navItems.map((item) => {
                 const isActive = activeSection === item.href;
                 return (
                   <a
                     key={item.name}
                     href={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className={`block text-lg font-medium flex items-center space-x-2 ${
-                      isActive
-                        ? ""
-                        : "text-white "
-                    }`}
+                    className={`relative font-medium transition-all duration-300
+                      after:content-[''] after:absolute after:left-0 after:-bottom-1 
+                      after:w-0 after:h-[2px] after:bg-white after:transition-all after:duration-300 
+                      hover:after:w-full
+                      ${isActive ? "" : "text-white"}
+                    `}
                   >
-                    <span>{item.icon}</span>
-                    <span>{item.name}</span>
+                    {item.name}
                   </a>
                 );
               })}
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-    </nav>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setIsOpen(true)}
+                className="text-white text-2xl focus:outline-none"
+                aria-label="Open Menu"
+              >
+                <FiMenu />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {isOpen && (
+            <>
+              <motion.div
+                className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                onClick={() => setIsOpen(false)}
+              />
+
+              <motion.div
+                className="fixed top-0 right-0 h-full w-4/5 bg-black z-50 p-6 space-y-6 overflow-x-hidden"
+                initial={{ x: "100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "100%" }}
+                transition={{ duration: 0.4, delay: 0.2 }}
+              >
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="text-2xl text-white ml-auto block"
+                  aria-label="Close Menu"
+                >
+                  <FiX />
+                </button>
+
+                {navItems.map((item) => {
+                  const isActive = activeSection === item.href;
+                  return (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className={`block text-lg font-medium flex items-center space-x-2 
+                        ${isActive ? "" : "text-white"}`}
+                    >
+                      <span>{item.icon}</span>
+                      <span>{item.name}</span>
+                    </a>
+                  );
+                })}
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
+      </nav>
+
+      {/* Spacer */}
+      <div className="h-16 md:h-16"></div>
+
+      {/* Global Styles */}
+      <style jsx global>{`
+        html,
+        body {
+          overflow-x: hidden;
+        }
+        html {
+          scroll-behavior: smooth;
+        }
+      `}</style>
+    </>
   );
 };
 

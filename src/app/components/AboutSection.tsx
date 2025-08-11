@@ -47,16 +47,16 @@ const itemVariants: any = {
 
 const AboutSection = () => {
   return (
-    <section className="py-24 px-6 md:px-12 bg-black text-white overflow-hidden">
+    <section className="py-16 px-4 sm:px-8 md:px-12 bg-black text-white overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-20 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left: Image and Badge */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
             viewport={{ once: true, amount: 0.5 }}
-            className="relative mx-auto w-80 h-80 sm:w-96 sm:h-96 group"
+            className="relative mx-auto w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 group"
           >
             {/* Glowing Effect */}
             <div className="absolute -inset-2 w-full h-full rounded-full bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 opacity-30 blur-2xl group-hover:opacity-50 transition duration-700" />
@@ -84,9 +84,9 @@ const AboutSection = () => {
                 delay: 0.4,
               }}
               viewport={{ once: true }}
-              className="absolute -bottom-10 -right-6 sm:right-10 bg-white text-black font-bold w-32 h-32 flex items-center justify-center rounded-full shadow-xl text-center leading-tight z-10"
+              className="absolute -bottom-10 -right-6 sm:right-10 bg-white text-black font-bold w-28 h-28 sm:w-32 sm:h-32 flex items-center justify-center rounded-full shadow-xl text-center leading-tight z-10 text-sm sm:text-base"
             >
-              <span className="text-sm md:text-base">
+              <span>
                 3+ Years
                 <br />
                 Experience
@@ -103,11 +103,11 @@ const AboutSection = () => {
             className="w-full"
           >
             {/* About Me */}
-            <motion.div variants={itemVariants} className="mb-12">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4 pb-2 border-b border-white/20 inline-block">
+            <motion.div variants={itemVariants} className="mb-10 sm:mb-12">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 pb-2 border-b border-white/20 inline-block">
                 About Me
               </h2>
-              <p className="text-gray-300 leading-relaxed md:text-lg">
+              <p className="text-gray-300 leading-relaxed text-sm sm:text-base md:text-lg">
                 I’m a passionate and creative video editor with a strong
                 curiosity for visual storytelling. With over 3 years of
                 experience collaborating with individuals and brands, I
@@ -119,22 +119,24 @@ const AboutSection = () => {
             </motion.div>
 
             {/* Education */}
-            <motion.div variants={itemVariants} className="mb-12">
-              <h3 className="text-3xl font-bold mb-6 pb-2 border-b border-white/20">
+            <motion.div variants={itemVariants} className="mb-10 sm:mb-12">
+              <h3 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 pb-2 border-b border-white/20">
                 Education
               </h3>
-              <ul className="space-y-6 text-base text-gray-300">
-                <li className="border-l-4 border-white pl-4">
-                  <p className="font-semibold text-white text-lg">
+              <ul className="space-y-5 sm:space-y-6 text-xs sm:text-base text-gray-300">
+                <li className="border-l-4 border-white pl-3 sm:pl-4">
+                  <p className="font-semibold text-white text-sm sm:text-lg">
                     Bachelor in Computer Science Engineering
                   </p>
                   <p className="text-gray-400">
                     UNITED INTERNATIONAL UNIVERSITY
-                    <span className="ml-2">| 2022 - Present</span>
+                    <span className="ml-1 sm:ml-2">| 2022 - Present</span>
                   </p>
                 </li>
-                <li className="border-l-4 border-white pl-4">
-                  <p className="font-semibold text-white text-lg">Science</p>
+                <li className="border-l-4 border-white pl-3 sm:pl-4">
+                  <p className="font-semibold text-white text-sm sm:text-lg">
+                    Science
+                  </p>
                   <p className="text-gray-400">
                     Dhaka Commerce College <span>| 2019 - 2021</span>
                   </p>
@@ -144,19 +146,19 @@ const AboutSection = () => {
 
             {/* Skills */}
             <motion.div variants={itemVariants}>
-              <h3 className="text-3xl font-bold mb-6 pb-2 border-b border-white/20">
+              <h3 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 pb-2 border-b border-white/20">
                 Skills
               </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
                 {skills.map(({ name, icon }) => (
                   <motion.div
                     key={name}
                     whileHover={{ scale: 1.05, y: -5 }}
                     transition={{ type: "spring", stiffness: 300 }}
-                    className="bg-white/5 p-4 rounded-lg flex flex-col items-center justify-center text-center shadow-md border border-white/10 cursor-pointer"
+                    className="bg-white/5 p-3 sm:p-4 rounded-lg flex flex-col items-center justify-center text-center shadow-md border border-white/10 cursor-pointer"
                   >
-                    <span className="text-3xl text-white mb-2">{icon}</span>
-                    <span className="text-sm font-medium text-gray-200">{name}</span>
+                    <span className="text-2xl sm:text-3xl text-white mb-1 sm:mb-2">{icon}</span>
+                    <span className="text-xs sm:text-sm font-medium text-gray-200">{name}</span>
                   </motion.div>
                 ))}
               </div>
